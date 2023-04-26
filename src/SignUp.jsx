@@ -103,7 +103,7 @@ import {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Text>{errmessage}</Text>
+              <Text color='red' >{errmessage}</Text>
               <Stack spacing={10} pt={2}>
                 <Button
                   isLoading={disableBtn}
