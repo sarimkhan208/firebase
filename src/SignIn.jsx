@@ -16,8 +16,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import {signInWithEmailAndPassword} from 'firebase/auth';
+import {GoogleButton} from 'react-google-button'
+import { UserAuth } from './authContext';
+
+
   
   export default function SignIn() {
+
     const [errmessage,setErrmessage] = useState("")
     const [showPassword, setShowPassword] = useState(false);
     const [disableBtn,setdisable] = useState(false)
@@ -25,9 +30,10 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const navigate = useNavigate()
+    const {googleSignIn} = UserAuth()
 
     
-
+    // MANUAL LOGIN WITH FIREBASE
     const handleSubmit =  ()=>{
       if(!email || !password){
         setErrmessage("please fill all the field")
@@ -47,6 +53,23 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
       })
 
     }
+
+
+
+    //LOGIN WITH GOOGLE FIREBSAE
+
+    const handleGoogleSignIn = async ()=>{
+      try{
+        await googleSignIn()
+        navigate("/")
+
+      }catch(err){
+        console.log(err)
+      }
+    }
+
+
+
     return (
       <Flex
         minH={'100vh'}
@@ -97,7 +120,9 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
                   }}>
                   Sign in
                 </Button>
+
               </Stack>
+              <GoogleButton onClick={handleGoogleSignIn} />
             </Stack>
           </Box>
         </Stack>

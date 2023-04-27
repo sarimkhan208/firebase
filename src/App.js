@@ -8,7 +8,6 @@ function App() {
   useEffect(()=>{
     auth.onAuthStateChanged((user)=>{
       if(user){
-        console.log(user)
         setUsername(user.displayName)
       }else{
         setUsername("")
@@ -16,7 +15,7 @@ function App() {
     })
   })
   return (
-    <MainRoutes name={username} />
+    <MainRoutes  />
   );
 }
 
